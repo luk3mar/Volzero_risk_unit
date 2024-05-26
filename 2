@@ -1,0 +1,18 @@
+function calculateShares() {
+    const portfolioSize = parseFloat(document.getElementById('portfolioSize').value);
+    const riskTolerancePercentage = parseFloat(document.getElementById('riskTolerance').value);
+    const entryPrice = parseFloat(document.getElementById('entryPrice').value);
+    const lowOfDayPrice = parseFloat(document.getElementById('lowOfDay').value);
+
+    if (isNaN(portfolioSize) || isNaN(riskTolerancePercentage) || isNaN(entryPrice) || isNaN(lowOfDayPrice)) {
+        alert('Please enter valid numbers in all fields.');
+        return;
+    }
+
+    const riskToleranceDecimal = riskTolerancePercentage / 100;
+    const totalRiskAmount = portfolioSize * riskToleranceDecimal;
+    const riskPerShare = entryPrice - lowOfDayPrice;
+    const sharesToBuy = totalRiskAmount / riskPerShare;
+
+    document.getElementById('result').innerText = `Based on the provided information, you should buy ${Math.floor(sharesToBuy)} shares.`;
+}
